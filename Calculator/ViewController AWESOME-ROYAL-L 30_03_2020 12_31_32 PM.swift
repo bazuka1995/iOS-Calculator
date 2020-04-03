@@ -18,8 +18,6 @@ class ViewController: UIViewController {
     var numbers = [String] ()
     var sign = false;
     var calcIndex = [Int] ()
-    var plusMinus = 0
-    var divideTimes = 0
     
     @IBAction func numbers(_ sender: UIButton) {
         label2Text += String(sender.tag-1)
@@ -45,6 +43,9 @@ class ViewController: UIViewController {
         if label.text != "" {
             if sign == false {
                 sign = true
+//                label.text = "- " + label.text!
+//                label2Text = "- " + label2Text
+//                label2.text = label2Text
             } else {
                 sign = false
             }
@@ -107,33 +108,19 @@ class ViewController: UIViewController {
             previousNumber = Double(label.text!)!
             numbers.append(String(previousNumber))
             
-            if numbers.count == 3 {
-                switch numbers[1] {
-                case "/":
-                    label.text = String(Double(numbers[0])!/Double(numbers[2])!)
-                case "x":
-                    label.text = String(Double(numbers[0])!*Double(numbers[2])!)
-                case "-":
-                    label.text = String(Double(numbers[0])!-Double(numbers[2])!)
-                case "+":
-                    label.text = String(Double(numbers[0])!+Double(numbers[2])!)
-                default:
-                    print("a")
-                }
-            } else {
-                //repeat {
-                    
-                //} while numbers.count > 1
-                
-                for i in numbers.indices {
-                    if numbers[i] == "+" || numbers[i] == "-" {
-                        plusMinus = plusMinus + 1
-                    } else if numbers[i] == "/" || numbers[i] == "*" {
-                        divideTimes = divideTimes + 1
-                    }
-                }
-                
+             for i in 1 ..< numbers.count {
+                print(i)
             }
+            
+//            if operation == 12 { //Divide
+//                label.text = String(previousNumber / numberOnScreen)
+//            } else if operation == 13 { //Multiply
+//                label.text = String(previousNumber * numberOnScreen)
+//            } else if operation == 14 { //Subtract
+//                label.text = String(previousNumber - numberOnScreen)
+//            } else if operation == 15 { //add
+//                label.text = String(previousNumber + numberOnScreen)
+//            }
             
             numbers = []
             label2Text = ""
