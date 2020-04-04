@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     var performingMath = false // Whether the calculator is performing math
     var label2Text: String = "" // Used to store users input and display it on label2
     var numbers = [String] () // store each button press in an array for calculating the result
-    var sign = false;
     var plusMinus = 0 // Store number of times the plus or minus symbol is used
     var divideTimes = 0 // Store the number of times the divide or times symbol is used
     
@@ -52,16 +51,6 @@ class ViewController: UIViewController {
         
         temp += label.text!
         label2.text = temp // append the new percentage to label 2
-    }
-    
-    @IBAction func sign(_ sender: UIButton) {
-        if label.text != "" {
-            if sign == false {
-                sign = true
-            } else {
-                sign = false
-            }
-        }
     }
     
     @IBOutlet weak var equals: UILabel! // show an equals sign on the left when the user presses '='
@@ -117,7 +106,6 @@ class ViewController: UIViewController {
                 plusMinus += 1
             }
 
-            //operation = sender.tag
             performingMath = true
 
         } else if sender.tag == 16 { //equals sign
@@ -125,8 +113,8 @@ class ViewController: UIViewController {
             previousNumber = Double(label.text!)!
             numbers.append(String(previousNumber)) // append previous number to the numbers array
             
-            if numbers.count == 3 {
-                switch numbers[1] {
+            if numbers.count == 3 { // calculate the result when there are only two numbers being calculated
+                switch numbers[1] { // Check what the sign is
                 case "/":
                     label.text = String(Double(numbers[0])!/Double(numbers[2])!)
                 case "x":
@@ -135,11 +123,47 @@ class ViewController: UIViewController {
                     label.text = String(Double(numbers[0])!-Double(numbers[2])!)
                 case "+":
                     label.text = String(Double(numbers[0])!+Double(numbers[2])!)
-                default:
-                    print("a")
+                default: // Will never be used because all cases are covered. Has to be a default statement
+                    label.text = "Error"
                 }
-            } else {
+            } else { // calculate the result when there are more than two numbers being calculated using BODMAS
+                var index = 0 // Store current place in numbers array
+                var result: Double = 0 // Store the result of each operation
                 
+                for char in numbers { // first look for times and divide due to BODMAS
+                    if char == "x" { // look for times
+                        result = Double(numbers[index-1])! * Double(numbers[index+1])! // calculate result
+                        numbers[index+1] = String(result) // put it into the numbers array after the function
+                        numbers[index-1] = "0" // replace numbers if theyve been calculated
+                        numbers[index] = "0"
+                    }
+                    
+                    if char == "/" {
+                        result = Double(numbers[index-1])! / Double(numbers[index+1])!
+                        numbers[index+1] = String(result)
+                        numbers[index-1] = "0"
+                        numbers[index] = "0"
+                    }
+                    
+                    index += 1
+                }
+                
+                numbers = numbers.filter{$0 != "0"} // Delete all zeros
+                result = Double(numbers[0])!
+                index = 0
+                
+                for char in numbers { // add or subtract teh rest of the numbers
+                    if index != 0 {
+                        if char == "+" {
+                            result += Double(numbers[index+1])!
+                        }
+                        if char == "-" {
+                            result -= Double(numbers[index+1])!
+                        }
+                    }
+                    index += 1
+                }
+                label.text = String(result)
             }
             
             numbers = []
