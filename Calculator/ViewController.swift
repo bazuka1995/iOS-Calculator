@@ -37,8 +37,29 @@ class ViewController: UIViewController {
     }
     
     @IBAction func percentage(_ sender: UIButton) {
-        numberOnScreen = Double(label.text!)!/100
-        label.text = String(numberOnScreen)
+        var temp = ""
+        var operationNum = 0 // Count the number of operations currently on screen
+        numberOnScreen = Double(label.text!)!/100 // Divide the number on screen by 100 to create a percentage
+        label.text = String(numberOnScreen) // Display the new number on screen
+        
+        for char in label2Text { // Count number of operations
+            if char == "+" || char == "/" || char == "x" || char == "-" {
+                operationNum += 1
+            }
+        }
+        
+        for char in label2Text { // Rebuild label2 text to include the new percentage
+            if operationNum > 0 {
+                temp.append(char)
+            }
+            
+            if char == "+" || char == "/" || char == "x" || char == "-" {
+                operationNum -= 1
+            }
+        }
+        
+        temp += label.text!
+        label2.text = temp
     }
     
     @IBAction func sign(_ sender: UIButton) {
