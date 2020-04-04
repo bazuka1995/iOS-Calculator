@@ -15,6 +15,7 @@
 		96061CD1242D9FA50014F814 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96061CCF242D9FA50014F814 /* LaunchScreen.storyboard */; };
 		96061CDC242D9FA60014F814 /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96061CDB242D9FA60014F814 /* CalculatorTests.swift */; };
 		96061CE7242D9FA60014F814 /* CalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96061CE6242D9FA60014F814 /* CalculatorUITests.swift */; };
+		96F403A524381817000A2938 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F403A424381817000A2938 /* Calculator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		96061CE2242D9FA60014F814 /* CalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalculatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96061CE6242D9FA60014F814 /* CalculatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorUITests.swift; sourceTree = "<group>"; };
 		96061CE8242D9FA60014F814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96F403A424381817000A2938 /* Calculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Calculator.swift; path = "../../Calculator-iOS/calc/Calculator.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		96061CC3242D9F9D0014F814 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				96F403A424381817000A2938 /* Calculator.swift */,
 				96061CC4242D9F9D0014F814 /* AppDelegate.swift */,
 				96061CC6242D9F9D0014F814 /* SceneDelegate.swift */,
 				96061CC8242D9F9D0014F814 /* ViewController.swift */,
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96061CC9242D9F9D0014F814 /* ViewController.swift in Sources */,
+				96F403A524381817000A2938 /* Calculator.swift in Sources */,
 				96061CC5242D9F9D0014F814 /* AppDelegate.swift in Sources */,
 				96061CC7242D9F9D0014F814 /* SceneDelegate.swift in Sources */,
 			);
