@@ -142,17 +142,6 @@ class ViewController: UIViewController {
                     print("a")
                 }
             } else {
-                //repeat {
-                    
-                //} while numbers.count > 1
-                
-                for i in numbers.indices {
-                    if numbers[i] == "+" || numbers[i] == "-" {
-                        plusMinus = plusMinus + 1
-                    } else if numbers[i] == "/" || numbers[i] == "*" {
-                        divideTimes = divideTimes + 1
-                    }
-                }
                 
             }
             
