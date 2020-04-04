@@ -138,7 +138,7 @@ class ViewController: UIViewController {
                         numbers[index] = "0"
                     }
                     
-                    if char == "/" {
+                    if char == "/" { // Look for divide
                         result = Double(numbers[index-1])! / Double(numbers[index+1])!
                         numbers[index+1] = String(result)
                         numbers[index-1] = "0"
@@ -149,10 +149,10 @@ class ViewController: UIViewController {
                 }
                 
                 numbers = numbers.filter{$0 != "0"} // Delete all zeros
-                result = Double(numbers[0])!
+                result = Double(numbers[0])! // result is the first number
                 index = 0
                 
-                for char in numbers { // add or subtract teh rest of the numbers
+                for char in numbers { // add or subtract the rest of the numbers
                     if index != 0 {
                         if char == "+" {
                             result += Double(numbers[index+1])!
@@ -163,7 +163,7 @@ class ViewController: UIViewController {
                     }
                     index += 1
                 }
-                label.text = String(result)
+                label.text = String(result) // update the result on the screen
             }
             
             numbers = []
