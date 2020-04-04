@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     var label2Text: String = "" // Used to store users input and display it on label2
     var numbers = [String] () // store each button press in an array for calculating the result
     var sign = false;
-    var calcIndex = [Int] ()
     var plusMinus = 0 // Store number of times the plus or minus symbol is used
     var divideTimes = 0 // Store the number of times the divide or times symbol is used
     
@@ -51,8 +50,8 @@ class ViewController: UIViewController {
             }
         }
         
-        temp += label.text! // append the new percentage
-        label2.text = temp
+        temp += label.text!
+        label2.text = temp // append the new percentage to label 2
     }
     
     @IBAction func sign(_ sender: UIButton) {
@@ -124,7 +123,7 @@ class ViewController: UIViewController {
         } else if sender.tag == 16 { //equals sign
             
             previousNumber = Double(label.text!)!
-            numbers.append(String(previousNumber))
+            numbers.append(String(previousNumber)) // append previous number to the numbers array
             
             if numbers.count == 3 {
                 switch numbers[1] {
