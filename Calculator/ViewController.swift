@@ -176,6 +176,10 @@ class ViewController: UIViewController {
                 label.text = String(result) // update the result on the screen
             }
             
+            if label.text == "inf"  || label.text == "-inf" {
+                label.text = "Div by 0 error"
+            }
+            
             numbers = []
             label2Text = ""
             equals.text = "="
