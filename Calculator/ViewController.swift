@@ -57,7 +57,7 @@ class ViewController: UIViewController {
             temp += label.text!
             label2.text = temp // append the new percentage to label 2
             
-            operationPress = true
+            operationPress = false
         }
     }
     
@@ -99,6 +99,8 @@ class ViewController: UIViewController {
 
             previousNumber = Double(label.text!)! // store the previous number before the user presses a new number
             numbers.append(String(previousNumber)) // add the previous number to the numbers array
+            
+            label2Text = label2.text!
 
             if sender.tag == 12 { //Divide
                 label.text = "/"
