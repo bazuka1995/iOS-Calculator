@@ -78,12 +78,12 @@ class ViewController: UIViewController {
         operationPress = false
     }
     
-    @IBAction func bullet(_ sender: UIButton) {
-        if operationPress == false && label.text != "" {
+    @IBAction func decimal(_ sender: UIButton) {
+        if operationPress == false && label.text != "" { // Makes sure you cannot press the decimal when an operation has been presse right before and that a number has been pressed before
             var mainScreen = label.text!
             var secondScreen = label2.text!
             
-            mainScreen.append(".")
+            mainScreen.append(".") // Append decimal point to the screen
             secondScreen.append(".")
             
             label.text = mainScreen
@@ -191,13 +191,20 @@ class ViewController: UIViewController {
                 label.text = String(result) // update the result on the screen
             }
             
-            if label.text == "inf"  || label.text == "-inf" {
+            let labelText = label.text!
+            
+            if label.text == "inf"  || label.text == "-inf" { // Can't divide by 0
                 label.text = "Div by 0 error"
+            } else if labelText.count > 10 {
+                let index = labelText.index(labelText.startIndex, offsetBy: 10)
+                
+                label.text = String(labelText[...index])
             }
             
             numbers = []
             label2Text = ""
             equals.text = "="
+            operationPress = true
         }
     }
     

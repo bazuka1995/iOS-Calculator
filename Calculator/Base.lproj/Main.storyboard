@@ -216,7 +216,7 @@
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="bullet:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yBh-6H-3Yx"/>
+                                    <action selector="decimal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eeg-nj-Qgr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="16" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cFK-PX-ldZ">
