@@ -18,10 +18,10 @@ class ViewController: UIViewController {
     var plusMinus = 0 // Store number of times the plus or minus symbol is used
     var divideTimes = 0 // Store the number of times the divide or times symbol is used
     var operationPress = false // Stores whether an operation is the most recent input
-    var divideBy0 = false // Makes sure you cannot divide by 0
     
     @IBAction func numbers(_ sender: UIButton) { // add button presses (numbers only) to label and label2
-        label2Text += String(sender.tag-1)
+        label2Text = label2.text!
+        label2Text.append(String(sender.tag-1))
         label2.text = label2Text
         equals.text = ""
         
@@ -76,6 +76,21 @@ class ViewController: UIViewController {
         plusMinus = 0
         divideTimes = 0
         operationPress = false
+    }
+    
+    @IBAction func bullet(_ sender: UIButton) {
+        if operationPress == false && label.text != "" {
+            var mainScreen = label.text!
+            var secondScreen = label2.text!
+            
+            mainScreen.append(".")
+            secondScreen.append(".")
+            
+            label.text = mainScreen
+            label2.text = secondScreen
+        }
+        
+        operationPress = true
     }
     
     @IBAction func buttons(_ sender: UIButton) { // function for divide, multiply, subtract and plus
@@ -159,7 +174,7 @@ class ViewController: UIViewController {
                 }
                 
                 numbers = numbers.filter{$0 != "0"} // Delete all zeros
-                result = Double(numbers[0])! // result is the first number
+                result = Double(numbers[0])! // add first number to result
                 index = 0
                 
                 for char in numbers { // add or subtract the rest of the numbers
