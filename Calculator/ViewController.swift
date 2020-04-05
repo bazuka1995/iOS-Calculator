@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     var numbers = [String] () // store each button press in an array for calculating the result
     var plusMinus = 0 // Store number of times the plus or minus symbol is used
     var divideTimes = 0 // Store the number of times the divide or times symbol is used
+    var operationPress = false // Stores whether an operation is the most recent input
+    var divideBy0 = false // Makes sure you cannot divide by 0
     
     @IBAction func numbers(_ sender: UIButton) { // add button presses (numbers only) to label and label2
         label2Text += String(sender.tag-1)
@@ -31,26 +33,32 @@ class ViewController: UIViewController {
             label.text = label.text! + String(sender.tag-1)
             numberOnScreen = Double(label.text!)!
         }
+        
+        operationPress = false
     }
     
     @IBAction func percentage(_ sender: UIButton) {
-        var temp = ""
-        var operationNum = plusMinus + divideTimes // The number of operations the user has used
-        numberOnScreen = Double(label.text!)!/100 // Divide the number on screen by 100 to create a percentage
-        label.text = String(numberOnScreen) // Display the new number on screen
-        
-        for char in label2Text { // Rebuild label2 text to include the new percentage
-            if operationNum > 0 { // append numbers onto label 2 until the last number (which is the new percentage)
-                temp.append(char)
+        if label.text != "" && operationPress == false {
+            var temp = ""
+            var operationNum = plusMinus + divideTimes // The number of operations the user has used
+            numberOnScreen = Double(label.text!)!/100 // Divide the number on screen by 100 to create a percentage
+            label.text = String(numberOnScreen) // Display the new number on screen
+            
+            for char in label2Text { // Rebuild label2 text to include the new percentage
+                if operationNum > 0 { // append numbers onto label 2 until the last number (which is the new percentage)
+                    temp.append(char)
+                }
+                
+                if char == "+" || char == "/" || char == "x" || char == "-" {
+                    operationNum -= 1
+                }
             }
             
-            if char == "+" || char == "/" || char == "x" || char == "-" {
-                operationNum -= 1
-            }
+            temp += label.text!
+            label2.text = temp // append the new percentage to label 2
+            
+            operationPress = true
         }
-        
-        temp += label.text!
-        label2.text = temp // append the new percentage to label 2
     }
     
     @IBOutlet weak var equals: UILabel! // show an equals sign on the left when the user presses '='
@@ -67,11 +75,12 @@ class ViewController: UIViewController {
         numbers = []
         plusMinus = 0
         divideTimes = 0
+        operationPress = false
     }
     
     @IBAction func buttons(_ sender: UIButton) { // function for divide, multiply, subtract and plus
         
-        if label.text != ""  && sender.tag != 16 { // Empty or not equals sign
+        if label.text != ""  && sender.tag != 16  && operationPress == false { // Makes sure that an operation cant be inputted first and you cannot input two operations one after the other 
 
             previousNumber = Double(label.text!)! // store the previous number before the user presses a new number
             numbers.append(String(previousNumber)) // add the previous number to the numbers array
@@ -107,6 +116,7 @@ class ViewController: UIViewController {
             }
 
             performingMath = true
+            operationPress = true
 
         } else if sender.tag == 16 { //equals sign
             
