@@ -18,12 +18,13 @@ class ViewController: UIViewController {
     var plusMinus = 0 // Store number of times the plus or minus symbol is used
     var divideTimes = 0 // Store the number of times the divide or times symbol is used
     var operationPress = false // Stores whether an operation is the most recent input
+    var equalsPress = false // Stores whether the equals sign is the most recent input
     
     @IBAction func numbers(_ sender: UIButton) { // add button presses (numbers only) to label and label2
-        label2Text = label2.text!
-        label2Text.append(String(sender.tag-1))
+        label2Text = label2.text! // Capture the info on the second screen
+        label2Text.append(String(sender.tag-1)) // Append it to the second screen
         label2.text = label2Text
-        equals.text = ""
+        equals.text = "" // Make sure that the equals label displays nothing
         
         if performingMath == true {
             label.text = String(sender.tag-1)
@@ -76,6 +77,7 @@ class ViewController: UIViewController {
         plusMinus = 0
         divideTimes = 0
         operationPress = false
+        equalsPress = false
     }
     
     @IBAction func decimal(_ sender: UIButton) {
@@ -136,77 +138,79 @@ class ViewController: UIViewController {
             operationPress = true
 
         } else if sender.tag == 16 { //equals sign
-            
-            previousNumber = Double(label.text!)!
-            numbers.append(String(previousNumber)) // append previous number to the numbers array
-            
-            if numbers.count == 3 { // calculate the result when there are only two numbers being calculated
-                switch numbers[1] { // Check what the sign is
-                case "/":
-                    label.text = String(Double(numbers[0])!/Double(numbers[2])!)
-                case "x":
-                    label.text = String(Double(numbers[0])!*Double(numbers[2])!)
-                case "-":
-                    label.text = String(Double(numbers[0])!-Double(numbers[2])!)
-                case "+":
-                    label.text = String(Double(numbers[0])!+Double(numbers[2])!)
-                default: // Will never be used because all cases are covered. Has to be a default statement
-                    label.text = "Error"
-                }
-            } else { // calculate the result when there are more than two numbers being calculated using BODMAS
-                var index = 0 // Store current place in numbers array
-                var result: Double = 0 // Store the result of each operation
+            equalsPress = true
+            if label.text != "" && operationPress == false { // Cant press = when there is nothing on the screen and a operation has just been inputted
+                previousNumber = Double(label.text!)!
+                numbers.append(String(previousNumber)) // append previous number to the numbers array
                 
-                for char in numbers { // first look for times and divide due to BODMAS
-                    if char == "x" { // look for times
-                        result = Double(numbers[index-1])! * Double(numbers[index+1])! // calculate result
-                        numbers[index+1] = String(result) // put it into the numbers array after the function
-                        numbers[index-1] = "0" // replace numbers if theyve been calculated
-                        numbers[index] = "0"
+                if numbers.count == 3 { // calculate the result when there are only two numbers being calculated
+                    switch numbers[1] { // Check what the sign is
+                    case "/":
+                        label.text = String(Double(numbers[0])!/Double(numbers[2])!)
+                    case "x":
+                        label.text = String(Double(numbers[0])!*Double(numbers[2])!)
+                    case "-":
+                        label.text = String(Double(numbers[0])!-Double(numbers[2])!)
+                    case "+":
+                        label.text = String(Double(numbers[0])!+Double(numbers[2])!)
+                    default: // Will never be used because all cases are covered. Has to be a default statement
+                        label.text = "Error"
+                    }
+                } else { // calculate the result when there are more than two numbers being calculated using BODMAS
+                    var index = 0 // Store current place in numbers array
+                    var result: Double = 0 // Store the result of each operation
+                    
+                    for char in numbers { // first look for times and divide due to BODMAS
+                        if char == "x" { // look for times
+                            result = Double(numbers[index-1])! * Double(numbers[index+1])! // calculate result
+                            numbers[index+1] = String(result) // put it into the numbers array after the function
+                            numbers[index-1] = "0" // replace numbers if theyve been calculated
+                            numbers[index] = "0"
+                        }
+                        
+                        if char == "/" { // Look for divide
+                            result = Double(numbers[index-1])! / Double(numbers[index+1])!
+                            numbers[index+1] = String(result)
+                            numbers[index-1] = "0"
+                            numbers[index] = "0"
+                        }
+                        
+                        index += 1
                     }
                     
-                    if char == "/" { // Look for divide
-                        result = Double(numbers[index-1])! / Double(numbers[index+1])!
-                        numbers[index+1] = String(result)
-                        numbers[index-1] = "0"
-                        numbers[index] = "0"
-                    }
+                    numbers = numbers.filter{$0 != "0"} // Delete all zeros
+                    result = Double(numbers[0])! // add first number to result
+                    index = 0
                     
-                    index += 1
-                }
-                
-                numbers = numbers.filter{$0 != "0"} // Delete all zeros
-                result = Double(numbers[0])! // add first number to result
-                index = 0
-                
-                for char in numbers { // add or subtract the rest of the numbers
-                    if index != 0 {
-                        if char == "+" {
-                            result += Double(numbers[index+1])!
+                    for char in numbers { // add or subtract the rest of the numbers
+                        if index != 0 {
+                            if char == "+" {
+                                result += Double(numbers[index+1])!
+                            }
+                            if char == "-" {
+                                result -= Double(numbers[index+1])!
+                            }
                         }
-                        if char == "-" {
-                            result -= Double(numbers[index+1])!
-                        }
+                        index += 1
                     }
-                    index += 1
+                    label.text = String(result) // update the result on the screen
                 }
-                label.text = String(result) // update the result on the screen
-            }
-            
-            let labelText = label.text!
-            
-            if label.text == "inf"  || label.text == "-inf" { // Can't divide by 0
-                label.text = "Div by 0 error"
-            } else if labelText.count > 10 {
-                let index = labelText.index(labelText.startIndex, offsetBy: 10)
                 
-                label.text = String(labelText[...index])
+                let labelText = label.text!
+                
+                if label.text == "inf"  || label.text == "-inf" { // Can't divide by 0
+                    label.text = "Div by 0 error"
+                } else if labelText.count > 10 {
+                    let index = labelText.index(labelText.startIndex, offsetBy: 10)
+                    
+                    label.text = String(labelText[...index])
+                }
+                
+                numbers = []
+                label2Text = ""
+                equals.text = "="
+                operationPress = true
             }
-            
-            numbers = []
-            label2Text = ""
-            equals.text = "="
-            operationPress = true
         }
     }
     
