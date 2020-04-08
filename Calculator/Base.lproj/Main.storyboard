@@ -277,6 +277,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="clearButtonPicked" destination="rsc-Ez-iIn" id="rhR-er-bM2"/>
                         <outlet property="equals" destination="hAj-nX-C4h" id="rf7-us-8Tq"/>
                         <outlet property="label" destination="xMC-lR-MXW" id="uRd-8W-kLo"/>
                         <outlet property="label2" destination="ERh-zQ-4kz" id="a5R-ae-Dav"/>

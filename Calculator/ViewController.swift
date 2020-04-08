@@ -21,6 +21,9 @@ class ViewController: UIViewController {
     var equalsPress = false // Stores whether the equals sign is the most recent input
     
     @IBAction func numbers(_ sender: UIButton) { // add button presses (numbers only) to label and label2
+        if equalsPress == true { // Clear the result from the last operation
+            clear(clearButtonPicked)
+        }
         label2Text = label2.text! // Capture the info on the second screen
         label2Text.append(String(sender.tag-1)) // Append it to the second screen
         label2.text = label2Text
@@ -79,6 +82,8 @@ class ViewController: UIViewController {
         operationPress = false
         equalsPress = false
     }
+    
+    @IBOutlet weak var clearButtonPicked: UIButton! // Create a variable so that the clear function can be called programatically
     
     @IBAction func decimal(_ sender: UIButton) {
         if operationPress == false && label.text != "" { // Makes sure you cannot press the decimal when an operation has been presse right before and that a number has been pressed before
