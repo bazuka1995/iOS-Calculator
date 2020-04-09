@@ -201,14 +201,10 @@ class ViewController: UIViewController {
                     label.text = String(result) // update the result on the screen
                 }
                 
-                let labelText = label.text!
+                //let labelText = label.text!
                 
                 if label.text == "inf"  || label.text == "-inf" { // Can't divide by 0
                     label.text = "Div by 0 error"
-                } else if labelText.count > 10 {
-                    let index = labelText.index(labelText.startIndex, offsetBy: 10)
-                    
-                    label.text = String(labelText[...index])
                 }
                 
                 numbers = []
@@ -218,7 +214,6 @@ class ViewController: UIViewController {
             }
         }
     }
-    
     
     @IBOutlet weak var label: UILabel! // Main calculator screen
     
