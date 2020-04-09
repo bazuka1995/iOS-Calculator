@@ -2,6 +2,7 @@
 A GUI Calculator for Assignment 1
 Made by Dov Royal 11995305
 All code is contained in /Calculator/ViewController.swift
+This calculator has been simulated using the iPhone 11 Pro Max
 
 Some function of the calculator:
 1. Operation buttons include +, -, /, x and = buttons
